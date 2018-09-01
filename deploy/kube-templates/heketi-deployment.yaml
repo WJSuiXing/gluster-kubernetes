@@ -34,6 +34,8 @@ spec:
         glusterfs: heketi-pod
         heketi: pod
     spec:
+      nodeSelector:
+        heketinode: master
       serviceAccountName: heketi-service-account
       containers:
       - image: heketi/heketi:dev
