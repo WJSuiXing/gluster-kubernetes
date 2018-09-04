@@ -12,3 +12,5 @@ parameters:
   restuser: "admin"
   secretNamespace: "${NAMESPACE}"
   secretName: "heketi-${NAMESPACE}-admin-secret"
+  volumetype: disperse:4:2
+allowVolumeExpansion: true

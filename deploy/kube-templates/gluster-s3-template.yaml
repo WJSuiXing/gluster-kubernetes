@@ -37,6 +37,8 @@ items:
         labels:
           glusterfs: s3-pod
       spec:
+        nodeSelector:
+          heketinode: master
         containers:
         - name: gluster-s3
           image: gluster/gluster-object:latest
