@@ -32,7 +32,7 @@
 
 		"sshexec" : {
 			"rebalance_on_expansion": true,
-			"keyfile" : "/etc/heketi/private_key",
+			"keyfile" : "/heketi/config/glusterfs-ssh",
 			"port" : "${SSH_PORT}",
 			"user" : "${SSH_USER}",
 			"sudo" : ${SSH_SUDO}

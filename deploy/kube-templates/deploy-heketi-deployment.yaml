@@ -38,7 +38,7 @@ spec:
         heketinode: master
       serviceAccountName: heketi-service-account
       containers:
-      - image: heketi/heketi:dev
+      - image: suixing/heketi
         imagePullPolicy: IfNotPresent
         name: deploy-heketi
         env:
@@ -63,6 +63,8 @@ spec:
           mountPath: "/var/lib/heketi"
         - name: config
           mountPath: /etc/heketi
+        - name: common-config
+          mountPath: "/heketi/config"
         readinessProbe:
           timeoutSeconds: 3
           initialDelaySeconds: 3
@@ -80,3 +82,6 @@ spec:
       - name: config
         secret:
           secretName: heketi-config-secret
+      - name: common-config
+        hostPath:
+          path: "/heketi/config"
