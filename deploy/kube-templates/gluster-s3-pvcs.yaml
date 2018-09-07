@@ -31,4 +31,4 @@ items:
     - ReadWriteMany
     resources:
       requests:
-        storage: 4Gi
+        storage: 8Gi
