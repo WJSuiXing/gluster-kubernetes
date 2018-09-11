@@ -231,11 +231,19 @@ abort() {
       eval_output "${CLI} delete dc,route,template --selector=\"gluster-s3\" 2>&1"
     fi
   fi
-  if [[ ${GLUSTER} -eq 1 ]]; then
+
+  if [[ ${GLUSTER} -eq 1 ]] || [[ ${DEPLOY_OBJECT} -eq 1 ]]; then
     while read -r node; do
       debug "Removing label from '${node}' as a GlusterFS node."
-      eval_output "${CLI} label nodes \"${node}\" storagenode- 2>&1"
+      eval_output "${CLI} label nodes `kubectl get nodes -o wide | grep ${node} | awk '{print $1}'` storagenode- 2>&1"
     done <<< "$(echo -e "${NODES}")"
+  fi
+
+  if [[ ${GLUSTER} -eq 1 ]]; then
+#    while read -r node; do
+#      debug "Removing label from '${node}' as a GlusterFS node."
+#      eval_output "${CLI} label nodes \"${node}\" storagenode- 2>&1"
+#    done <<< "$(echo -e "${NODES}")"
     debug "Removing glusterfs daemonset."
     eval_output "${CLI} delete ds --selector=\"glusterfs\" 2>&1"
     if [[ "${CLI}" == *oc\ * ]]; then
@@ -743,18 +751,33 @@ if [[ ${EXISTS_HEKETI} -eq 0 ]]; then
   output "OK"
 fi
 
-if [[ ${GLUSTER} -eq 1 ]] && [[ ${EXISTS_GLUSTERFS} -eq 0 ]] && [[ ${EXISTS_HEKETI} -eq 0 ]]; then
+if [[ ${GLUSTER} -eq 1 ]] || [[ ${DEPLOY_OBJECT} -eq 1 ]]; then
   if [[ -z ${DAEMONSET_LABEL} ]]; then
     DAEMONSET_LABEL=glusterfs
   fi
   while read -r node; do
     debug "Marking '${node}' as a GlusterFS node."
-    eval_output "${CLI} label nodes ${node} storagenode=${DAEMONSET_LABEL} --overwrite 2>&1"
+    eval_output "${CLI} label nodes `kubectl get nodes -o wide | grep ${node} | awk '{print $1}'` storagenode=${DAEMONSET_LABEL} --overwrite 2>&1"
     if [[ ${?} -ne 0 ]]; then
       output "Failed to label node '${node}'"
       exit 1
     fi
   done <<< "$(echo -e "${NODES}")"
+
+fi
+
+if [[ ${GLUSTER} -eq 1 ]] && [[ ${EXISTS_GLUSTERFS} -eq 0 ]] && [[ ${EXISTS_HEKETI} -eq 0 ]]; then
+#  if [[ -z ${DAEMONSET_LABEL} ]]; then
+#    DAEMONSET_LABEL=glusterfs
+#  fi
+#  while read -r node; do
+#    debug "Marking '${node}' as a GlusterFS node."
+#    eval_output "${CLI} label nodes ${node} storagenode=${DAEMONSET_LABEL} --overwrite 2>&1"
+#    if [[ ${?} -ne 0 ]]; then
+#      output "Failed to label node '${node}'"
+#      exit 1
+#    fi
+#  done <<< "$(echo -e "${NODES}")"
   debug "Deploying GlusterFS pods."
   if [[ "${CLI}" == *oc\ * ]]; then
     eval_output "${CLI} process ${OC_PROCESS_VAL_SWITCH} NODE_LABEL=${DAEMONSET_LABEL} glusterfs | ${CLI} create -f - 2>&1"

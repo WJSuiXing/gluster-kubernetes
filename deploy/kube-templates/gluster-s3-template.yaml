@@ -30,7 +30,7 @@ items:
     annotations:
       description: Defines how to deploy gluster s3 object storage
   spec:
-    replicas: 1
+    replicas: 9
     template:
       metadata:
         name: gluster-s3
@@ -38,10 +38,10 @@ items:
           glusterfs: s3-pod
       spec:
         nodeSelector:
-          heketinode: master
+          storagenode: glusterfs
         containers:
         - name: gluster-s3
-          image: gluster/gluster-object:latest
+          image: suixing/glusterfs-object-aarch64:latest
           imagePullPolicy: IfNotPresent
           ports:
           - name: gluster

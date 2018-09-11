@@ -6,7 +6,8 @@
           "node": {
             "hostnames": {
               "manage": [
-                "node1"
+                "192.168.99.231",
+		"192.168.99.231"
               ],
               "storage": [
                 "192.168.99.231"
@@ -18,11 +19,91 @@
             "/dev/sda"
           ]
         },
-        {
+	{
           "node": {
             "hostnames": {
               "manage": [
-                "node8"
+                "192.168.99.233"
+              ],
+              "storage": [
+                "192.168.99.233"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "/dev/sda"
+          ]
+        },
+	{
+          "node": {
+            "hostnames": {
+              "manage": [
+                "192.168.99.234"
+              ],
+              "storage": [
+                "192.168.99.234"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "/dev/sda"
+          ]
+        },
+	{
+          "node": {
+            "hostnames": {
+              "manage": [
+                "192.168.99.235"
+              ],
+              "storage": [
+                "192.168.99.235"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "/dev/sda"
+          ]
+        },
+	{
+          "node": {
+            "hostnames": {
+              "manage": [
+                "192.168.99.236"
+              ],
+              "storage": [
+                "192.168.99.236"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "/dev/sda"
+          ]
+        },
+	{
+          "node": {
+            "hostnames": {
+              "manage": [
+                "192.168.99.237"
+              ],
+              "storage": [
+                "192.168.99.237"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "/dev/sda"
+          ]
+        },
+	{
+          "node": {
+            "hostnames": {
+              "manage": [
+                "192.168.99.238"
               ],
               "storage": [
                 "192.168.99.238"
@@ -38,7 +119,23 @@
           "node": {
             "hostnames": {
               "manage": [
-                "node10"
+                "192.168.99.239"
+              ],
+              "storage": [
+                "192.168.99.239"
+              ]
+            },
+            "zone": 1
+          },
+          "devices": [
+            "/dev/sda"
+          ]
+        },
+        {
+          "node": {
+            "hostnames": {
+              "manage": [
+                "192.168.99.240"
               ],
               "storage": [
                 "192.168.99.240"
